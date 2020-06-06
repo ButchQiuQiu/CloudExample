@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.butch</groupId>
+  <artifactId>cloudexample</artifactId>
+  <packaging>pom</packaging>
+  <version>1.0</version>
+
+  <name>cloudexample</name>
+
+  <!--子模块 -->
+  <modules>
+    <!-- api模块 -->
+    <module>spring_cloud_api</module>
+    <!-- 消费者模块 -->
+    <module>spring_cloud_consumer</module>
+    <!-- 提供者模块 -->
+    <module>spring_cloud_provider_8001</module>
+    <module>spring_cloud_provider_8002</module>
+    <!-- 注册和发现中心 -->
+    <!-- eureka集群 -->
+    <module>spring_cloud_eureka_7001</module>
+    <module>spring_cloud_eureka_7002</module>
+    <!-- zuul网关 -->
+    <module>spring_cloud_zuul_9001</module>
+    <!-- 配置中心 -->
+    <module>spring_cloud_config_server_8008</module>
+    <!-- kafka -->
+    <!-- 消费者1 -->
+    <module>spring_cloud_stream_kafka_c1_7886</module>
+    <!-- 消费者2 -->
+    <module>spring_cloud_stream_kafka_c2_7887</module>
+    <!-- 生产者1 -->
+    <module>spring_cloud_stream_kafka_p1_7888</module>
+    <module>test1</module>
+  </modules>
+
+  <!-- 自定义属性,用于版本控制 -->
+  <properties>
+    <!-- springBoot -->
+    <spring-boot.version>2.2.7.RELEASE</spring-boot.version>
+    <!-- springCloud -->
+    <spring-cloud-version>Hoxton.SR4</spring-cloud-version>
+    <!-- mybatis -->
+    <mybatis.starter.version>2.1.2</mybatis.starter.version>
+    <!-- druid -->
+    <druid.starter.version>1.1.22</druid.starter.version>
+
+    <!-- 由springBoot设置jdk版本 -->
+    <java.version>1.8</java.version>
+  </properties>
+
+
+  <!-- 版本管理 -->
+  <dependencyManagement>
+    <dependencies>
+      <!-- springCloud-->
+      <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-dependencies</artifactId>
+        <version>${spring-cloud-version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <!-- springBoot -->
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-dependencies</artifactId>
+        <version>${spring-boot.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <!-- druidStarter -->
+      <dependency>
+        <groupId>com.alibaba</groupId>
+        <artifactId>druid-spring-boot-starter</artifactId>
+        <version>${druid.starter.version}</version>
+      </dependency>
+      <!-- springbootMybatisStarter -->
+      <dependency>
+        <groupId>org.mybatis.spring.boot</groupId>
+        <artifactId>mybatis-spring-boot-starter</artifactId>
+        <version>${mybatis.starter.version}</version>
+      </dependency>
+    </dependencies>
+
+  </dependencyManagement>
+
+  <!-- 常用包的依赖,父工程只导入web,springboot,dev,测试模块 -->
+  <dependencies>
+    <!-- boot -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter</artifactId>
+    </dependency>
+    <!-- mvc -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <!-- 热启动 -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-devtools</artifactId>
+      <scope>runtime</scope>
+      <optional>true</optional>
+    </dependency>
+    <!-- springTest单元测试启动器 -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.junit.vintage</groupId>
+          <artifactId>junit-vintage-engine</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
+</project>
