@@ -10,31 +10,28 @@
 
   <!--子模块 -->
   <modules>
-    <!-- api模块 -->
-    <module>spring_cloud_api</module>
-    <!-- 消费者模块 -->
-    <module>spring_cloud_consumer</module>
-    <!-- 提供者模块 -->
-    <module>spring_cloud_provider_8001</module>
-    <module>spring_cloud_provider_8002</module>
-    <!-- 注册和发现中心 -->
-    <!-- eureka集群 -->
-    <module>spring_cloud_eureka_7001</module>
-    <module>spring_cloud_eureka_7002</module>
+    <!-- ———————————————————————————————————————————————外围服务—————————————————————————————————————————————————— -->
     <!-- zuul网关 -->
-    <module>spring_cloud_zuul_9001</module>
+    <module>zuul_6001</module>
+    <!-- eureka -->
+    <module>eureka_7001</module>
     <!-- 配置中心 -->
-    <module>spring_cloud_config_server_8008</module>
-    <!-- kafka -->
-    <!-- 消费者1 -->
-    <module>spring_cloud_stream_kafka_c1_7886</module>
-    <!-- 消费者2 -->
-    <module>spring_cloud_stream_kafka_c2_7887</module>
-    <!-- 生产者1 -->
-    <module>spring_cloud_stream_kafka_p1_7888</module>
-    <module>test1</module>
+    <module>spring_cloud_config_server_7101</module>
+
+    <!--———————————————————————————————————————————————— 公共api ——————————————————————————————————————————————-->
+    <!-- Redis_api -->
+    <module>redis_api</module>
+
+    <!-- ——————————————————————————————————————————————————普通业务—————————————————————————————————————————————————————————— -->
+    <!-- 安全框架 -->
+    <module>security_6101</module>
+    <!-- 签到-->
+    <module>signin_8001</module>
+    <!-- 表格增删改 -->
+    <module>dataTable_8002</module>
   </modules>
 
+  <!-- ——————————————————————————————————————————————————————————依赖控制—————————————————————————————————————————————————————— -->
   <!-- 自定义属性,用于版本控制 -->
   <properties>
     <!-- springBoot -->
