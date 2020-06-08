@@ -11,24 +11,24 @@
   <!--子模块 -->
   <modules>
     <!-- ———————————————————————————————————————————————外围服务—————————————————————————————————————————————————— -->
-    <!-- zuul网关 -->
-    <module>zuul_6001</module>
+    <!-- getaway顶层网关 -->
+    <module>gateway-top6001</module>
     <!-- eureka -->
-    <module>eureka_7001</module>
+    <module>eureka7001</module>
     <!-- 配置中心 -->
-    <module>spring_cloud_config_server_7101</module>
+    <!-- <module>spring-cloud-config-server7101</module> -->
 
     <!--———————————————————————————————————————————————— 公共api ——————————————————————————————————————————————-->
     <!-- Redis_api -->
-    <module>redis_api</module>
+    <!-- <module>redis-api</module> -->
 
     <!-- ——————————————————————————————————————————————————普通业务—————————————————————————————————————————————————————————— -->
-    <!-- 安全框架 -->
-    <module>security_6101</module>
+    <!-- 安全框架+zuul路由转发 -->
+    <module>security-zuul6101</module>
     <!-- 签到-->
-    <module>signin_8001</module>
+    <!-- <module>signin8001</module> -->
     <!-- 表格增删改 -->
-    <module>dataTable_8002</module>
+    <module>datatable8002</module>
   </modules>
 
   <!-- ——————————————————————————————————————————————————————————依赖控制—————————————————————————————————————————————————————— -->
@@ -90,11 +90,11 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter</artifactId>
     </dependency>
-    <!-- mvc -->
-    <dependency>
+    <!-- web框架 -->
+    <!-- <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
-    </dependency>
+    </dependency> -->
     <!-- 热启动 -->
     <dependency>
       <groupId>org.springframework.boot</groupId>

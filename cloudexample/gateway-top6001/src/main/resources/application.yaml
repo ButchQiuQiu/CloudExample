@@ -1,0 +1,32 @@
+server:
+  port: 6001
+eureka:
+  client:
+    service-url:
+      #服务注册地址,对应eureka的服务注册url
+      defaultZone: http://localhost:7001/eureka/
+    
+spring:
+
+  application:
+    name: gateway-top
+  cloud:
+    gateway:
+      # 自动连接注册中心配置路由，配置后的url为：网关/服务名/xxx
+      discovery:
+        locator:
+          # 开启注册服务映射
+          enabled: false
+          # 服务名转换为小写
+          lower-case-service-id: false
+      # 手动配置路由
+      routes:
+      # id必须唯一建议服务名相同
+      - id: datatable
+      # 可以实体ip端口，lb开头是从注册中心拉取服务
+        uri: lb://datatable
+        # 路由后的地址
+        predicates:
+        - Path=/**
+
+

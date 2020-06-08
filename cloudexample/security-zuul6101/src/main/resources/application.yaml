@@ -1,0 +1,10 @@
+server:
+  port: 6101
+eureka:
+  client:
+    service-url:
+      #服务注册地址,对应eureka的服务注册url
+      defaultZone: http://localhost:7001/eureka/
+spring:
+  application:
+    name: security-zuul
