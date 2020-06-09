@@ -22,9 +22,9 @@ spring:
       # 手动配置路由
       routes:
       # id必须唯一建议服务名相同
-      - id: datatable
+      - id: security-zuul
       # 可以实体ip端口，lb开头是从注册中心拉取服务
-        uri: lb://datatable
+        uri: lb://security-zuul
         # 路由后的地址
         predicates:
         - Path=/**

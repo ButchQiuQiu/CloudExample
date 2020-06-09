@@ -2,6 +2,8 @@ server:
   port: 7001
 #Eureka配置
 eureka:
+  server:
+    enable-self-preservation: false
   client:
     #表示是否向注册中心注册自己
     register-with-eureka: false
