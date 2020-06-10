@@ -6,9 +6,7 @@ eureka:
       #服务注册地址,对应eureka的服务注册url
       defaultZone: http://localhost:7001/eureka/
 spring:
+  profiles:
+#   公共配置，后续转到configServer    include:    - jwt
   application:
     name: security-zuul
-jwt:
-  secret: bsIqMgs58mXxf+9/I+LV8Pji+/tVjaHDwwa7ytCd+iU=
-  expiration: 7200000
-  token: Authorization

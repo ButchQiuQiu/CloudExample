@@ -12,7 +12,8 @@ class DemoApplicationTests {
 	JwtServerProperties jwt;
 	@Test
 	void contextLoads() {
-		System.out.println(jwt.getSecret());
+		System.out.println("配置--------------------------");
+		System.out.println(jwt.toString());
 	}
 
 }

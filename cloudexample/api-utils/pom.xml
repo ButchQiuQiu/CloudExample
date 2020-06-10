@@ -29,14 +29,12 @@
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt-impl</artifactId>
 			<version>0.11.1</version>
-			<optional>true</optional>
 		</dependency>
 		<!-- jjwt-api -->
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt-api</artifactId>
 			<version>0.11.1</version>
-			<optional>true</optional>
 		</dependency>
 		<!-- jjwt-jackson -->
 		<dependency>
@@ -44,7 +42,6 @@
 			<artifactId>jjwt-jackson</artifactId>
 			<version>0.11.1</version>
 			<scope>runtime</scope>
-			<optional>true</optional>
 		</dependency>
 	</dependencies>
 </project>

@@ -1,15 +1,26 @@
 package com.butch.apiutils.jwt;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
-@Configuration
+import org.springframework.stereotype.Component;
+@Component
 @ConfigurationProperties(prefix = "jwt")
 public class JwtServerProperties {
+    /**
+     * 密钥
+     */
     private String secret;
+    /**
+     * 过期时间
+     */
     private Long expiration;
+    /**
+     * token头名
+     */
     private String token;
 
-    public String getSecret() {
+    
+
+	public String getSecret() {
         return secret;
     }
 
@@ -32,4 +43,9 @@ public class JwtServerProperties {
     public void setToken(String token) {
         this.token = token;
     }
+    @Override
+	public String toString() {
+		return "JwtServerProperties [secret=" + secret + ", expiration=" + expiration + ", token=" + token
+				+ ", hashCode()=" + hashCode() + "]";
+	}
 }

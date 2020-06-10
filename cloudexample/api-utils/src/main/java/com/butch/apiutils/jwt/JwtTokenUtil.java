@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,17 +22,26 @@ import io.jsonwebtoken.impl.DefaultClock;
 @SuppressWarnings("all")
 @Component
 public class JwtTokenUtil implements Serializable {
-    private static final long serialVersionUID = -3301605591108950415L;
     @Autowired
     private JwtServerProperties jwtServerProperties;
+    private static final long serialVersionUID = -3301605591108950415L;
+   
 
-    private  String secret=jwtServerProperties.getSecret();
+    private  String secret;
 
-    private Long expiration=jwtServerProperties.getExpiration();
+    private Long expiration;
 
-    private String tokenHeader=jwtServerProperties.getToken();
+    private String tokenHeader;
 
     private io.jsonwebtoken.Clock clock = DefaultClock.INSTANCE;
+    
+
+    @PostConstruct
+    private void init(){
+        this.secret=jwtServerProperties.getSecret();
+        this.expiration=jwtServerProperties.getExpiration();
+        this.tokenHeader=jwtServerProperties.getToken();
+    }
 
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
@@ -85,6 +96,30 @@ public class JwtTokenUtil implements Serializable {
 
     public Date getExpirationDateFromToken(String token) {
         return getClaimFromToken(token, Claims::getExpiration);
+    }
+
+    public String getSecret() {
+        return secret;
+    }
+
+    public void setSecret(String secret) {
+        this.secret = secret;
+    }
+
+    public Long getExpiration() {
+        return expiration;
+    }
+
+    public void setExpiration(Long expiration) {
+        this.expiration = expiration;
+    }
+
+    public String getTokenHeader() {
+        return tokenHeader;
+    }
+
+    public void setTokenHeader(String tokenHeader) {
+        this.tokenHeader = tokenHeader;
     }
 
 }
