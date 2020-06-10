@@ -1,4 +1,4 @@
-package com.butch.securityzuul6101.util;
+package com.butch.apiutils.jwt;
 
 import java.util.Base64;
 

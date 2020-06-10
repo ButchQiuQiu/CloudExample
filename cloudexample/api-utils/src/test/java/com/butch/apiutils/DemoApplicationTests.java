@@ -1,4 +1,4 @@
-package com.butch.securityzuul6101;
+package com.butch.apiutils;
 
 import com.butch.apiutils.jwt.JwtServerProperties;
 
@@ -8,16 +8,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 class DemoApplicationTests {
-
 	@Autowired
-	JwtServerProperties jwtServerProperties;
+	JwtServerProperties jwt;
 	@Test
 	void contextLoads() {
-		
-	}
-
-	@Test
-	void demo22(){
+		System.out.println(jwt.getSecret());
 	}
 
 }

@@ -2,8 +2,8 @@ package com.butch.securityzuul6101.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.butch.apiutils.jwt.JwtTokenUtil;
 import com.butch.securityzuul6101.pojo.SysUser;
-import com.butch.securityzuul6101.util.JwtTokenUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

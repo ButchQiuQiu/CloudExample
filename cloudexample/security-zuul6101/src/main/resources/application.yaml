@@ -8,3 +8,7 @@ eureka:
 spring:
   application:
     name: security-zuul
+jwt:
+  secret: bsIqMgs58mXxf+9/I+LV8Pji+/tVjaHDwwa7ytCd+iU=
+  expiration: 7200000
+  token: Authorization

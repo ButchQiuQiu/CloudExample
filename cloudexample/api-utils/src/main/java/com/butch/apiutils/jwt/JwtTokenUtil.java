@@ -1,19 +1,18 @@
-package com.butch.securityzuul6101.util;
+package com.butch.apiutils.jwt;
 
 import java.io.Serializable;
+import java.time.Clock;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
-import com.butch.securityzuul6101.pojo.SysUser;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Clock;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.impl.DefaultClock;
@@ -22,17 +21,16 @@ import io.jsonwebtoken.impl.DefaultClock;
 @Component
 public class JwtTokenUtil implements Serializable {
     private static final long serialVersionUID = -3301605591108950415L;
+    @Autowired
+    private JwtServerProperties jwtServerProperties;
 
-    @Value("${jwt.secret}")
-    private  String secret;
+    private  String secret=jwtServerProperties.getSecret();
 
-    @Value("${jwt.expiration}")
-    private Long expiration;
+    private Long expiration=jwtServerProperties.getExpiration();
 
-    @Value("${jwt.token}")
-    private String tokenHeader;
+    private String tokenHeader=jwtServerProperties.getToken();
 
-    private Clock clock = DefaultClock.INSTANCE;
+    private io.jsonwebtoken.Clock clock = DefaultClock.INSTANCE;
 
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
@@ -57,9 +55,8 @@ public class JwtTokenUtil implements Serializable {
     }
 
     public Boolean validateToken(String token, UserDetails userDetails) {
-        SysUser sysUser = (SysUser) userDetails;
         final String username = getUsernameFromToken(token);
-        return (username.equals(sysUser.getUsername())
+        return (username.equals(userDetails.getUsername())
                 && !isTokenExpired(token)
         );
     }

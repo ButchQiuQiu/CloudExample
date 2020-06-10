@@ -7,7 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.butch.securityzuul6101.util.JwtTokenUtil;
+import com.butch.apiutils.jwt.JwtTokenUtil;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,7 +18,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import io.jsonwebtoken.ExpiredJwtException;
 /**
  * 自定义拦截器，把用户的token添加进上下文中，可以让后面的鉴权之类的拦截器使用到此用户。
  */
@@ -49,7 +48,7 @@ public class JwtAuthorizationTokenFilter extends OncePerRequestFilter {
             authToken = requestHeader.substring(7);
             try {
                 username = jwtTokenUtil.getUsernameFromToken(authToken);
-            } catch (final ExpiredJwtException e) {
+            } catch (final Exception e) {
             }
         }
         //如果上下文中没有此用户那么就添加此用户。

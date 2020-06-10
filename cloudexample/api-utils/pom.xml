@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.butch</groupId>
+		<artifactId>cloudexample</artifactId>
+		<version>1.0</version>
+	</parent>
+	<groupId>com.butch</groupId>
+	<artifactId>api-utils</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>api-utils</name>
+	<description>Demo project for Spring Boot</description>
+	<dependencies>
+		<!-- yaml依赖 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<!-- security 安全框架 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<!-- jjwt-impl -->
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-impl</artifactId>
+			<version>0.11.1</version>
+			<optional>true</optional>
+		</dependency>
+		<!-- jjwt-api -->
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-api</artifactId>
+			<version>0.11.1</version>
+			<optional>true</optional>
+		</dependency>
+		<!-- jjwt-jackson -->
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-jackson</artifactId>
+			<version>0.11.1</version>
+			<scope>runtime</scope>
+			<optional>true</optional>
+		</dependency>
+	</dependencies>
+</project>

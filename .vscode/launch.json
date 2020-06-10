@@ -2,42 +2,22 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Spring Boot-DemoApplication<eureka7001>",
-            "request": "launch",
-            "cwd": "${workspaceFolder}",
-            "console": "internalConsole",
-            "mainClass": "com.butch.eureka7001.DemoApplication",
-            "projectName": "eureka7001",
-            "args": ""
-        },
-        {
-            "type": "java",
-            "name": "Spring Boot-DemoApplication<gateway-top6001>",
-            "request": "launch",
-            "cwd": "${workspaceFolder}",
-            "console": "internalConsole",
-            "mainClass": "com.butch.gatewaytop6001.DemoApplication",
-            "projectName": "gateway-top6001",
-            "args": ""
-        },
-        {
-            "type": "java",
-            "name": "Spring Boot-DemoApplication<datatable8002>",
-            "request": "launch",
-            "cwd": "${workspaceFolder}",
-            "console": "internalConsole",
-            "mainClass": "com.butch.datatable8002.DemoApplication",
-            "projectName": "datatable8002",
-            "args": ""
-        },
-        {
-            "type": "java",
             "name": "Spring Boot-DemoApplication<security-zuul6101>",
             "request": "launch",
             "cwd": "${workspaceFolder}",
             "console": "internalConsole",
             "mainClass": "com.butch.securityzuul6101.DemoApplication",
             "projectName": "security-zuul6101",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-DemoApplication<eureka7001>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.butch.eureka7001.DemoApplication",
+            "projectName": "eureka7001",
             "args": ""
         }
     ]

@@ -19,8 +19,8 @@
     <!-- <module>spring-cloud-config-server7101</module> -->
 
     <!--———————————————————————————————————————————————— 公共api ——————————————————————————————————————————————-->
-    <!-- Redis、反射等等 -->
-    <!-- <module>utils-api</module> -->
+    <!-- Redis、反射、jwt等等 -->
+    <module>api-utils</module>
 
     <!-- ——————————————————————————————————————————————————普通业务—————————————————————————————————————————————————————————— -->
     <!-- 安全框架+zuul路由转发 -->
@@ -45,6 +45,10 @@
 
     <!-- 由springBoot设置jdk版本 -->
     <java.version>1.8</java.version>
+    <!-- Maven编译配置 -->
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
 
 
@@ -85,6 +89,12 @@
 
   <!-- 常用包的依赖,父工程只导入web,springboot,dev,测试模块 -->
   <dependencies>
+    <!-- api-utils -->
+		<!-- <dependency>
+			<groupId>com.butch</groupId>
+			<artifactId>api-utils</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency> -->
     <!-- boot -->
     <dependency>
       <groupId>org.springframework.boot</groupId>

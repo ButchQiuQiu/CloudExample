@@ -1,9 +1,9 @@
-package com.butch.greenbirdoa.test_security.security;
+package com.butch.securityzuul6101.security;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.butch.greenbirdoa.pojo.SysUser;
+import com.butch.securityzuul6101.pojo.SysUser;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
