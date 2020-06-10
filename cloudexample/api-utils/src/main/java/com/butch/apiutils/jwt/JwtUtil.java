@@ -15,28 +15,29 @@ import io.jsonwebtoken.security.Keys;
  */
 @Component
 public class JwtUtil {
-    /**
-     * 自定义密钥
-     */
-    private final static String SECRET_KEY_STR="bsIqMgs58mXxf+9/I+LV8Pji+/tVjaHDwwa7ytCd+iU=";
-    /**
-     * 把密钥编码
-     */
-    private final static SecretKey SECRET_KEY=Keys.hmacShaKeyFor(SECRET_KEY_STR.getBytes());
+	/**
+	 * 自定义密钥
+	 */
+	private final static String SECRET_KEY_STR = "bsIqMgs58mXxf+9/I+LV8Pji+/tVjaHDwwa7ytCd+iU=";
+	/**
+	 * 把密钥编码
+	 */
+	private final static SecretKey SECRET_KEY = Keys.hmacShaKeyFor(SECRET_KEY_STR.getBytes());
 
-    /**
-     * 获取一个随机生成的hs256密钥
-     * @return 密钥字符串
-     * 
-     */
-    public String getSecretKey_Str(){
-        SecretKey secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
-        String encodeToString = Base64.getEncoder().encodeToString(secretKey.getEncoded());
-        return encodeToString;
-    }
+	/**
+	 * 获取一个随机生成的hs256密钥
+	 * 
+	 * @return 密钥字符串
+	 * 
+	 */
+	public String getSecretKey_Str() {
+		SecretKey secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+		String encodeToString = Base64.getEncoder().encodeToString(secretKey.getEncoded());
+		return encodeToString;
+	}
 
-    public String getJwtToken(){
-        
-        return Jwts.builder().setSubject("pan").signWith(SECRET_KEY).compact();
-    }
+	public String getJwtToken() {
+
+		return Jwts.builder().setSubject("pan").signWith(SECRET_KEY).compact();
+	}
 }

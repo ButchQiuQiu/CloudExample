@@ -1,28 +1,35 @@
-package com.butch.securityzuul6101.pojo;
+package com.butch.apiutils.pojo;
 
 import java.util.Collection;
-
-import com.butch.apiutils.pojo.User;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-public class UserAuth extends User implements UserDetails{
+/**
+ * 用户表实现UserDetails接口
+ */
+public class SysUser implements UserDetails {
+	/**
+	 * 序列化
+	 */
+	private static final long serialVersionUID = 1L;
 
-    private static final long serialVersionUID = 1L;
+	private String username;
+	private String password;
+	private Collection<? extends GrantedAuthority> authorities;
 
-    private Collection<? extends GrantedAuthority> authorities;
-
-
-
-	public UserAuth(String username, Collection<? extends GrantedAuthority> authorities) {
-		this.authorities = authorities;
-		this.setUsername(username);
+	public SysUser() {
+		super();
 	}
 
-	public UserAuth(String username,String password,Collection<? extends GrantedAuthority> authorities){
-		this.setUsername(username);
-		this.setPassword(password);
+	public SysUser(String username, Collection<? extends GrantedAuthority> authorities) {
+		this.authorities = authorities;
+		this.username = username;
+	}
+
+	public SysUser(String username,String password,Collection<? extends GrantedAuthority> authorities){
+		this.username = username;
+		this.password=password;
 		this.authorities = authorities;
 	}
 
@@ -37,13 +44,13 @@ public class UserAuth extends User implements UserDetails{
 	// 获取密码
 	@Override
 	public String getPassword() {
-		return this.getPassword();
+		return this.password;
 	}
 
 	// 获取账号
 	@Override
 	public String getUsername() {
-		return this.getUsername();
+		return this.username;
 	}
 
 	/**
@@ -82,10 +89,16 @@ public class UserAuth extends User implements UserDetails{
 		this.authorities = authorities;
 	}
 
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
 	@Override
 	public String toString() {
-		return "UserAuth [authorities=" + authorities + ", password=" + this.getPassword() + ", username=" + this.getUsername()+ "]";
+		return "User [authorities=" + authorities + ", password=" + password + ", username=" + username + "]";
 	}
-    
 }

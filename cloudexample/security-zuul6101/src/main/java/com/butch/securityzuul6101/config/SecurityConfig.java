@@ -1,9 +1,5 @@
 package com.butch.securityzuul6101.config;
 
-import com.butch.securityzuul6101.security.JwtAuthenticationEntryPoint;
-import com.butch.securityzuul6101.security.JwtAuthorizationTokenFilter;
-import com.butch.securityzuul6101.security.JwtUserDetailsService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,6 +14,10 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import com.butch.securityzuul6101.security.JwtAuthenticationEntryPoint;
+import com.butch.securityzuul6101.security.JwtAuthorizationTokenFilter;
+import com.butch.securityzuul6101.security.JwtUserDetailsService;
 
 @Configuration
 @EnableWebSecurity// 这个注解必须加，开启Security
@@ -52,7 +52,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 //放行请求
-                .antMatchers("/test").permitAll()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/haha").permitAll()
                 .antMatchers("/sysUser/test").permitAll()

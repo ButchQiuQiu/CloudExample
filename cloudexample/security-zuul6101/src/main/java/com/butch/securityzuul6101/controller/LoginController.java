@@ -3,7 +3,7 @@ package com.butch.securityzuul6101.controller;
 import javax.servlet.http.HttpServletRequest;
 
 import com.butch.apiutils.jwt.JwtTokenUtil;
-import com.butch.apiutils.pojo.User;
+import com.butch.apiutils.pojo.SysUser;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -22,16 +22,12 @@ public class LoginController {
 
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
-    @GetMapping("/test")
-    public String test(){
-        return "test";
-    }
 
     @GetMapping("/login")
-    public String login(@RequestBody User sysUser, HttpServletRequest request){
+    public String login(@RequestBody SysUser sysUser, HttpServletRequest request){
         System.out.println("接入成功");
         final UserDetails userDetails = userDetailsService.loadUserByUsername(sysUser.getUsername());
-        final String token = jwtTokenUtil.generateToken((User)userDetails);
+        final String token = jwtTokenUtil.generateToken(userDetails);
         return token;
     }
 

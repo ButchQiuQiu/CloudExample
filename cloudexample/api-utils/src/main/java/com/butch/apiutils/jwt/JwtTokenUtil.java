@@ -6,10 +6,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
-import com.butch.apiutils.pojo.User;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+
+import com.butch.apiutils.pojo.SysUser;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Clock;
@@ -33,9 +35,9 @@ public class JwtTokenUtil implements Serializable {
 
     private Clock clock = DefaultClock.INSTANCE;
 
-    public String generateToken(User user) {
+    public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
-        return doGenerateToken(claims, user.getUsername());
+        return doGenerateToken(claims, userDetails.getUsername());
     }
 
     private String doGenerateToken(Map<String, Object> claims, String subject) {
@@ -55,8 +57,8 @@ public class JwtTokenUtil implements Serializable {
         return new Date(createdDate.getTime() + expiration);
     }
 
-    public Boolean validateToken(String token, User sysUser) {
-        
+    public Boolean validateToken(String token, UserDetails userDetails) {
+        SysUser sysUser = (SysUser) userDetails;
         final String username = getUsernameFromToken(token);
         return (username.equals(sysUser.getUsername())
                 && !isTokenExpired(token)
