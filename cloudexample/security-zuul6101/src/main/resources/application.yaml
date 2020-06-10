@@ -7,6 +7,8 @@ eureka:
       defaultZone: http://localhost:7001/eureka/
 spring:
   profiles:
-#   公共配置，后续转到configServer    include:    - jwt
+#   公共配置，后续转到configServer
+    include:
+    - jwt
   application:
     name: security-zuul

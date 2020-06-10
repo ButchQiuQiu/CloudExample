@@ -3,7 +3,7 @@ package com.butch.securityzuul6101.security;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.butch.securityzuul6101.pojo.SysUser;
+import com.butch.securityzuul6101.pojo.UserAuth;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -23,7 +23,7 @@ public class JwtUserDetailsService implements UserDetailsService {
         List<GrantedAuthority> authorityList = new ArrayList<>();
         authorityList.add(new SimpleGrantedAuthority("ROLE_USER"));
         
-        return new SysUser(user,"qiuqiu123",authorityList);
+        return new UserAuth(user,"qiuqiu123",authorityList);
     }
 
 }

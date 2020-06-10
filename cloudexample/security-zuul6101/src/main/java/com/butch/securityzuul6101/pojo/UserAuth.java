@@ -2,32 +2,27 @@ package com.butch.securityzuul6101.pojo;
 
 import java.util.Collection;
 
+import com.butch.apiutils.pojo.User;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-/**
- * 用户表实现UserDetails接口
- */
-public class SysUser implements UserDetails {
-	/**
-	 * 序列化
-	 */
-	private static final long serialVersionUID = 1L;
+public class UserAuth extends User implements UserDetails{
 
-	private String username;
-	private String password;
-	private Collection<? extends GrantedAuthority> authorities;
+    private static final long serialVersionUID = 1L;
+
+    private Collection<? extends GrantedAuthority> authorities;
 
 
 
-	public SysUser(String username, Collection<? extends GrantedAuthority> authorities) {
+	public UserAuth(String username, Collection<? extends GrantedAuthority> authorities) {
 		this.authorities = authorities;
-		this.username = username;
+		this.setUsername(username);
 	}
 
-	public SysUser(String username,String password,Collection<? extends GrantedAuthority> authorities){
-		this.username = username;
-		this.password=password;
+	public UserAuth(String username,String password,Collection<? extends GrantedAuthority> authorities){
+		this.setUsername(username);
+		this.setPassword(password);
 		this.authorities = authorities;
 	}
 
@@ -42,13 +37,13 @@ public class SysUser implements UserDetails {
 	// 获取密码
 	@Override
 	public String getPassword() {
-		return this.password;
+		return this.getPassword();
 	}
 
 	// 获取账号
 	@Override
 	public String getUsername() {
-		return this.username;
+		return this.getUsername();
 	}
 
 	/**
@@ -87,16 +82,10 @@ public class SysUser implements UserDetails {
 		this.authorities = authorities;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
 
 	@Override
 	public String toString() {
-		return "SysUser [authorities=" + authorities + ", password=" + password + ", username=" + username + "]";
+		return "UserAuth [authorities=" + authorities + ", password=" + this.getPassword() + ", username=" + this.getUsername()+ "]";
 	}
+    
 }

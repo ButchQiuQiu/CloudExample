@@ -1,20 +1,18 @@
 package com.butch.apiutils.jwt;
 
 import java.io.Serializable;
-import java.time.Clock;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
-import javax.annotation.PostConstruct;
+import com.butch.apiutils.pojo.User;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Clock;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.impl.DefaultClock;
@@ -22,30 +20,22 @@ import io.jsonwebtoken.impl.DefaultClock;
 @SuppressWarnings("all")
 @Component
 public class JwtTokenUtil implements Serializable {
-    @Autowired
-    private JwtServerProperties jwtServerProperties;
     private static final long serialVersionUID = -3301605591108950415L;
-   
 
+    @Value("${jwt.secret}")
     private  String secret;
 
+    @Value("${jwt.expiration}")
     private Long expiration;
 
+    @Value("${jwt.token}")
     private String tokenHeader;
 
-    private io.jsonwebtoken.Clock clock = DefaultClock.INSTANCE;
-    
+    private Clock clock = DefaultClock.INSTANCE;
 
-    @PostConstruct
-    private void init(){
-        this.secret=jwtServerProperties.getSecret();
-        this.expiration=jwtServerProperties.getExpiration();
-        this.tokenHeader=jwtServerProperties.getToken();
-    }
-
-    public String generateToken(UserDetails userDetails) {
+    public String generateToken(User user) {
         Map<String, Object> claims = new HashMap<>();
-        return doGenerateToken(claims, userDetails.getUsername());
+        return doGenerateToken(claims, user.getUsername());
     }
 
     private String doGenerateToken(Map<String, Object> claims, String subject) {
@@ -65,9 +55,10 @@ public class JwtTokenUtil implements Serializable {
         return new Date(createdDate.getTime() + expiration);
     }
 
-    public Boolean validateToken(String token, UserDetails userDetails) {
+    public Boolean validateToken(String token, User sysUser) {
+        
         final String username = getUsernameFromToken(token);
-        return (username.equals(userDetails.getUsername())
+        return (username.equals(sysUser.getUsername())
                 && !isTokenExpired(token)
         );
     }
@@ -96,30 +87,6 @@ public class JwtTokenUtil implements Serializable {
 
     public Date getExpirationDateFromToken(String token) {
         return getClaimFromToken(token, Claims::getExpiration);
-    }
-
-    public String getSecret() {
-        return secret;
-    }
-
-    public void setSecret(String secret) {
-        this.secret = secret;
-    }
-
-    public Long getExpiration() {
-        return expiration;
-    }
-
-    public void setExpiration(Long expiration) {
-        this.expiration = expiration;
-    }
-
-    public String getTokenHeader() {
-        return tokenHeader;
-    }
-
-    public void setTokenHeader(String tokenHeader) {
-        this.tokenHeader = tokenHeader;
     }
 
 }
