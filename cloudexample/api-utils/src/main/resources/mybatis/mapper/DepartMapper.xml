@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.butch.apiutils.mapper.DepartMapper">
+
+<!-- 映射teacher的子查询,有缓存的情况下子查询拥有着更好的复用性-->
+  <resultMap id="Depart_Map" type="Depart">
+    <result property="id" column="id" />
+    <result property="name" column="name"/>
+    <association property="fk_authority" column="fk_authority" javaType="Authority" 
+    select="com.butch.apiutils.mapper.AuthorityMapper.getAuthorityById"/>
+  </resultMap>
+
+  <select id="getAllDepart" resultMap="Depart_Map">
+    select * from depart
+  </select>
+  <select id="getDepartById" resultMap="Depart_Map">
+      select * from depart where id=#{id}
+  </select>
+</mapper>

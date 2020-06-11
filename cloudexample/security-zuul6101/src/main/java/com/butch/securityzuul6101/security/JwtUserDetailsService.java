@@ -22,7 +22,6 @@ public class JwtUserDetailsService implements UserDetailsService {
         System.out.println("JwtUserDetailsService:" + user);
         List<GrantedAuthority> authorityList = new ArrayList<>();
         authorityList.add(new SimpleGrantedAuthority("ROLE_USER"));
-        
         return new SysUser(user,"qiuqiu123",authorityList);
     }
 

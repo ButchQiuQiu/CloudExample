@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.butch.apiutils.mapper.UserMapper">
+  <!--开启二级缓存-->
+  <cache />
+
+
+  <!-- 映射UserMapper -->
+  <resultMap id="User_Map" type="User">
+
+    <result property="username" column="username" />
+    <result property="password" column="password" />
+    <result property="name" column="name" />
+    <result property="address" column="address" />
+    <result property="phone" column="phone" />
+    <result property="salary" column="salary" />
+    <result property="lastsign" column="lastsign" />
+    <result property="absenteeism" column="absenteeism" />
+    <!-- 引用外部mapper,拥有缓存所以子查询效率不会太差 -->
+    <association property="fk_sex" column="fk_sex" javaType="Sex" select="com.butch.apiutils.mapper.SexMapper.getSexById"></association>
+
+    <association property="fk_jurisdiction" column="fk_jurisdiction" javaType="Jurisdiction" select="com.butch.apiutils.mapper.JurisdictionMapper.getJurisdictionById" />
+
+    <association property="fk_depart" column="fk_depart" javaType="Depart" select="com.butch.apiutils.mapper.DepartMapper.getDepartById" />
+  </resultMap>
+
+  <select id="getUserByUsername" resultMap="User_Map" parameterType="string">
+    select * from user where username = #{username}
+  </select>
+  <select id="getAllUser" resultMap="User_Map">
+    select * from user 
+  </select>
+
+  <!--不同角色的增删改权限判断 -->
+  <sql id="accessDecision">
+    <choose>
+      <!-- 管理部门 -->
+      <when test="myUser.fk_depart.fk_authority.id==1">
+          (
+            <!-- 可以操作级别小于或者等于自己的非管理角色用户 -->
+            (#{targetUser.fk_jurisdiction.id}&lt;=#{myUser.fk_jurisdiction.id} and #{targetUser.fk_depart.fk_authority.id}!=1)
+            or
+            <!-- 可以操作级别小于自己的管理角色用户 -->
+            (#{targetUser.fk_jurisdiction.id}&lt;#{myUser.fk_jurisdiction.id} and #{targetUser.fk_depart.fk_authority.id}=1)
+          )
+      </when>
+      <!-- 人事部门 -->
+      <when test="myUser.fk_depart.fk_authority.id==2">
+          ( 
+            <!-- 可以操作级别小于或者等于自己的普通用户 -->
+            (#{targetUser.fk_jurisdiction.id} &lt;=#{myUser.fk_jurisdiction.id} and #{targetUser.fk_depart.fk_authority.id}=3)
+            or 
+            <!-- 可以操作级别小于自己的人事用户 -->
+            (#{targetUser.fk_jurisdiction.id} &lt;#{myUser.fk_jurisdiction.id} and #{targetUser.fk_depart.fk_authority.id}=2)
+          )
+      </when>
+      <!-- 普通部门 -->
+      <when test="myUser.fk_depart.fk_authority.id==3">
+        (
+          <!-- 不允许操作 -->
+          1=2
+        )
+      </when>
+      <!-- 未知部门不允许操作 -->
+      <otherwise>
+          1=2
+      </otherwise>
+    </choose>
+  </sql>
+
+  <!-- 当前角色查询操作 -->
+  <select id="getUsersByUser" resultMap="User_Map" parameterType="user">
+    select * from user
+    <where>
+      <choose>
+        <!-- 管理部门 -->
+        <when test="fk_depart.fk_authority.id==1">
+          fk_jurisdiction&lt;=#{fk_jurisdiction.id}
+        </when>
+        <!-- 人事部门 -->
+        <when test="fk_depart.fk_authority.id==2">
+          fk_jurisdiction&lt;=#{fk_jurisdiction.id} and fk_depart!=4
+        </when>
+        <!-- 普通部门 -->
+        <when test="fk_depart.fk_authority.id==3">
+          fk_jurisdiction&lt;#{fk_jurisdiction.id} and fk_depart=#{fk_depart.id} or username=#{username}
+        </when>
+        <!-- 未知部门不允许操作 -->
+        <otherwise>
+          1=2
+        </otherwise>
+      </choose>
+    </where>
+  </select>
+
+  <!-- 当前角色删除操作 -->
+  <delete id="deleteUserByUserMap" parameterType="map">
+    delete from user where username=#{targetUser.username} and
+    <include refid="accessDecision"/>
+  </delete>
+
+  <!-- 当前角色修改操作 需要比其他多验证想要操作东西的权限-->
+  <update id="updateUserByUserMap" parameterType="map">
+    update user set ${column}=#{value} where username=#{targetUser.username} and 
+    (
+      ( <include refid="accessDecision"/> )
+    or
+      <!-- 如果是管理部门那么可以修改自己的信息但是不能修改部门和级别 -->
+      (
+        #{myUser.fk_depart.fk_authority.id}=1 and
+        #{myUser.username}=#{targetUser.username} 
+        and (#{column}!='fk_depart' and #{column}!='fk_jurisdiction')
+      )
+    )
+  </update>
+
+  <!-- 当前角色添加操作 查询默认空表dual(mysql自带空表dual满足函数使用)-->
+  <insert id="insertUserByUsers" parameterType="map">
+    insert into user (username,password,name,fk_sex,address,phone,salary,lastsign,absenteeism,fk_jurisdiction,fk_depart) 
+    select
+      #{targetUser.username},#{targetUser.password},#{targetUser.name},#{targetUser.fk_sex.id},#{targetUser.address},#{targetUser.phone},
+      #{targetUser.salary},#{targetUser.lastsign},#{targetUser.absenteeism},#{targetUser.fk_jurisdiction.id},#{targetUser.fk_depart.id}
+      from dual where 
+      <include refid="accessDecision"/>
+  </insert>
+</mapper>

@@ -18,9 +18,7 @@ public class SysUser implements UserDetails {
 	private String password;
 	private Collection<? extends GrantedAuthority> authorities;
 
-	public SysUser() {
-		super();
-	}
+
 
 	public SysUser(String username, Collection<? extends GrantedAuthority> authorities) {
 		this.authorities = authorities;
@@ -99,6 +97,6 @@ public class SysUser implements UserDetails {
 
 	@Override
 	public String toString() {
-		return "User [authorities=" + authorities + ", password=" + password + ", username=" + username + "]";
+		return "SysUser [authorities=" + authorities + ", password=" + password + ", username=" + username + "]";
 	}
 }
