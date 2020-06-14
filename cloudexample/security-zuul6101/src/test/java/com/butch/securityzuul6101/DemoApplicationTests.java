@@ -1,6 +1,6 @@
 package com.butch.securityzuul6101;
 
-import com.butch.apiutils.jwt.JwtServerProperties;
+import com.butch.apiutils.jwt.JwtProperties;
 import com.butch.apiutils.mapper.UserMapper;
 import com.butch.apiutils.pojo.UserTest;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -16,7 +16,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 class DemoApplicationTests {
 
 	@Autowired
-	JwtServerProperties jwtServerProperties;
+	JwtProperties jwtProperties;
 
 	@Autowired
 	RedisTemplate<String, Object> redisTemplate;
@@ -24,7 +24,7 @@ class DemoApplicationTests {
 	@Test
 	void demo22() {
 		System.out.println("输出中-----------------------------------------");
-		System.out.println(jwtServerProperties.toString());
+		System.out.println(jwtProperties.toString());
 		// System.out.println(securityConfig.toString());
 	}
 

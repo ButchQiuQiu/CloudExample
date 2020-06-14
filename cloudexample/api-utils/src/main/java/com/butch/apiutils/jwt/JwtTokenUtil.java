@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import com.butch.apiutils.pojo.SysUser;
+import com.butch.apiutils.redis.pojo.RedisUserDetails;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Clock;
@@ -43,7 +44,6 @@ public class JwtTokenUtil implements Serializable {
     private String doGenerateToken(Map<String, Object> claims, String subject) {
         final Date createdDate = clock.now();
         final Date expirationDate = calculateExpirationDate(createdDate);
-
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(subject)
@@ -57,10 +57,10 @@ public class JwtTokenUtil implements Serializable {
         return new Date(createdDate.getTime() + expiration);
     }
 
-    public Boolean validateToken(String token, UserDetails userDetails) {
-        SysUser sysUser = (SysUser) userDetails;
+    public Boolean validateToken(String token, RedisUserDetails userDetails) {
+        System.out.println(userDetails.toString());
         final String username = getUsernameFromToken(token);
-        return (username.equals(sysUser.getUsername())
+        return (username.equals(userDetails.getUsername())
                 && !isTokenExpired(token)
         );
     }

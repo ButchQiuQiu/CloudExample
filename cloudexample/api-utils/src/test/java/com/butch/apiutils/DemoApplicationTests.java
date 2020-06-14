@@ -1,8 +1,14 @@
 package com.butch.apiutils;
 
-import com.butch.apiutils.jwt.JwtServerProperties;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.butch.apiutils.jwt.JwtProperties;
 import com.butch.apiutils.mapper.UserMapper;
+import com.butch.apiutils.pojo.SysUser;
 import com.butch.apiutils.pojo.UserTest;
+import com.butch.apiutils.redis.RedisUserUtil;
+import com.butch.apiutils.redis.pojo.MySimpleGrantedAuthority;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -11,11 +17,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 @SpringBootTest
 class DemoApplicationTests {
 	@Autowired
-	JwtServerProperties jwt;
+	JwtProperties jwt;
 	@Autowired
 	RedisTemplate<String,Object> redisTemplate;
 	@Test
@@ -53,4 +60,15 @@ class DemoApplicationTests {
 		System.out.println(userMapper.getUserByUsername("Qiu123456"));
 	}
 	
+	@Autowired
+	RedisUserUtil redisUserUtil;
+	@Test
+	void demoRedisUtil(){
+		List<MySimpleGrantedAuthority> simpleGrantedAuthorities = new ArrayList<>();
+		simpleGrantedAuthorities.add(new MySimpleGrantedAuthority("ROLE_USER"));
+		simpleGrantedAuthorities.add(new MySimpleGrantedAuthority("ROLE_QIUQIU"));
+		redisUserUtil.setRedisUserByUserDetails(new SysUser("qiuqiu", simpleGrantedAuthorities));
+		// MySimpleGrantedAuthority mySimpleGrantedAuthority = new MySimpleGrantedAuthority("bbb");
+		System.out.println(redisUserUtil.getUserDetailsByUsername("qiuqiu"));
+	}
 }

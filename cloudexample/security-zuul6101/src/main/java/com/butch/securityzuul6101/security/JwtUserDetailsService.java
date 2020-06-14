@@ -1,28 +1,28 @@
 package com.butch.securityzuul6101.security;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.butch.apiutils.mapper.UserMapper;
+import com.butch.apiutils.pojo.User;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.butch.apiutils.pojo.SysUser;
-
 @Service
 public class JwtUserDetailsService implements UserDetailsService {
+    @Autowired
+    UserMapper mapper;
     /**
      * user是context中的username,从username中获取用户的权限信息。
      */
     @Override
-    public UserDetails loadUserByUsername(String user) throws UsernameNotFoundException {
-        System.out.println("JwtUserDetailsService:" + user);
-        List<GrantedAuthority> authorityList = new ArrayList<>();
-        authorityList.add(new SimpleGrantedAuthority("ROLE_USER"));
-        return new SysUser(user,"qiuqiu123",authorityList);
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User userBean = mapper.getUserByUsername(username);
+        if (userBean == null) {
+            throw new UsernameNotFoundException("数据库中没有此用户");
+        }
+        return userBean;
     }
 
 }

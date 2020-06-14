@@ -1,8 +1,13 @@
 package com.butch.apiutils.pojo;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+
+import com.butch.apiutils.redis.pojo.MySimpleGrantedAuthority;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 /**
@@ -25,6 +30,8 @@ public class User implements UserDetails {
 	private Integer absenteeism;
 	private Jurisdiction fk_jurisdiction;
 	private Depart fk_depart;
+	
+	@SuppressWarnings("all")
 	private Collection<? extends GrantedAuthority> authorities;
 
 	public User() {
@@ -53,9 +60,9 @@ public class User implements UserDetails {
 	// 获取权限名
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// List<SimpleGrantedAuthority> simpleGrantedAuthorities = new ArrayList<>();
-		// simpleGrantedAuthorities.add(new SimpleGrantedAuthority(this.fk_depart.getFk_authority().getName()));
-		return this.authorities;
+		List<MySimpleGrantedAuthority> simpleGrantedAuthorities = new ArrayList<>();
+		simpleGrantedAuthorities.add(new MySimpleGrantedAuthority(this.fk_depart.getFk_authority().getName()));
+		return simpleGrantedAuthorities;
 	}
 
 	// 获取密码

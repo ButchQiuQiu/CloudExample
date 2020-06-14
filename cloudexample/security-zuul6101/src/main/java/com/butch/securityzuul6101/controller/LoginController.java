@@ -23,7 +23,7 @@ public class LoginController {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
-    @GetMapping("/login")
+    @GetMapping("/logintest")
     public String login(@RequestBody SysUser sysUser, HttpServletRequest request){
         System.out.println("接入成功");
         final UserDetails userDetails = userDetailsService.loadUserByUsername(sysUser.getUsername());

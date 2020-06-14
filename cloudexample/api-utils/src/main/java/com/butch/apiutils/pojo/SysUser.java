@@ -20,6 +20,9 @@ public class SysUser implements UserDetails {
 
 
 
+	public SysUser(){
+		
+	}
 	public SysUser(String username, Collection<? extends GrantedAuthority> authorities) {
 		this.authorities = authorities;
 		this.username = username;
