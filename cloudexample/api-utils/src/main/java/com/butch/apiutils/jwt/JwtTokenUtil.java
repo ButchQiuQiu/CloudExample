@@ -6,12 +6,15 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+import javax.annotation.PostConstruct;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.butch.apiutils.pojo.SysUser;
+import com.butch.apiutils.pojo.User;
 import com.butch.apiutils.redis.pojo.RedisUserDetails;
 
 import io.jsonwebtoken.Claims;
@@ -25,20 +28,45 @@ import io.jsonwebtoken.impl.DefaultClock;
 public class JwtTokenUtil implements Serializable {
     private static final long serialVersionUID = -3301605591108950415L;
 
-    @Value("${jwt.secret}")
     private  String secret;
 
-    @Value("${jwt.expiration}")
     private Long expiration;
 
-    @Value("${jwt.token}")
     private String tokenHeader;
+
+    @Autowired
+    private JwtProperties jwtProperties;
+
+    @PostConstruct
+    private void init(){
+        this.secret=jwtProperties.getSecret();
+        this.expiration=jwtProperties.getExpiration();
+        this.tokenHeader=jwtProperties.getToken();
+    }   
+    
 
     private Clock clock = DefaultClock.INSTANCE;
 
-    public String generateToken(UserDetails userDetails) {
+    /**
+     * 从request中获取cookie，然后从cookie中获取token
+     * @param request
+     * @return
+     */
+    public String getUserIdFromReq(HttpServletRequest request){
+    	String token = null;
+        for (Cookie cookie : request.getCookies()) {
+            if (jwtProperties.getToken().equals(cookie.getName())) {
+                if (!"null".equals(cookie.getValue())) {
+                    token = cookie.getValue();
+                }
+            }
+        }
+        return this.getUserIdFromToken(token);
+    }
+
+    public String generateToken(User user) {
         Map<String, Object> claims = new HashMap<>();
-        return doGenerateToken(claims, userDetails.getUsername());
+        return doGenerateToken(claims, user.getUsername());
     }
 
     private String doGenerateToken(Map<String, Object> claims, String subject) {
@@ -58,14 +86,13 @@ public class JwtTokenUtil implements Serializable {
     }
 
     public Boolean validateToken(String token, RedisUserDetails userDetails) {
-        System.out.println(userDetails.toString());
-        final String username = getUsernameFromToken(token);
+        final String username = getUserIdFromToken(token);
         return (username.equals(userDetails.getUsername())
                 && !isTokenExpired(token)
         );
     }
 
-    public String getUsernameFromToken(String token) {
+    public String getUserIdFromToken(String token) {
         return getClaimFromToken(token, Claims::getSubject);
     }
 

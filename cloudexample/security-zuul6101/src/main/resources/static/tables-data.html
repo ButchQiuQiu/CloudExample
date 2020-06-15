@@ -343,7 +343,7 @@
             var Return = false;
             $.ajax({
                 async: false,                 //添加必须为非异步
-                url: "data/table/user",    //请求的url
+                url: "datatable/user",      //请求的url
                 type: "post",               //请求方式get，post          
                 data: JSON.stringify(json),                 //传递给服务器的数据
                 contentType: "application/json",
@@ -374,7 +374,7 @@
             };
             $.ajax({
                 async: false,                     //添加必须为非异步
-                url: "data/table/user",    //请求的url
+                url: "datatable/user",    //请求的url
                 type: "delete",               //请求方式get，post
                 data: json,                 //传递给服务器的数据
                 dataType: "json",           //返回的数据类型为文本
@@ -404,7 +404,7 @@
             var Return = false;
             $.ajax({
                 async: false,                 //添加必须为非异步
-                url: "data/table/user",    //请求的url
+                url: "datatable/user",    //请求的url
                 type: "patch",               //请求方式get，post          
                 data: json,                 //传递给服务器的数据
                 dataType: "json",           //返回的数据类型为文本
@@ -428,7 +428,7 @@
         function queryUser() {
             $.ajax({
                 async: false,
-                url: "data/table/user", //请求的url
+                url: "/datatable/user", //请求的url
                 type: "get",               //请求方式get，post
                 data: null,                 //传递给服务器的数据
                 dataType: "json",           //返回的数据类型为文本

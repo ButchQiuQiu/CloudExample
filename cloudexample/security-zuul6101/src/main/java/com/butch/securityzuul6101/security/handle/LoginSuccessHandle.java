@@ -11,12 +11,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.butch.apiutils.jwt.JwtProperties;
 import com.butch.apiutils.jwt.JwtTokenUtil;
+import com.butch.apiutils.pojo.User;
 import com.butch.apiutils.redis.RedisUserUtil;
+import com.butch.securityzuul6101.pojo.UserExDetails;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
@@ -39,11 +40,10 @@ public class LoginSuccessHandle implements AuthenticationSuccessHandler {
         // 登录成功后的处理
         PrintWriter writer = response.getWriter();
         //往redis中丢user数据
-        UserDetails userDetails=(UserDetails)authentication.getPrincipal();
-        redisUserUtil.setRedisUserByUserDetails(userDetails);
-        System.out.println(redisUserUtil.getUserDetailsByUsername(userDetails.getUsername()));        
+        User user=((UserExDetails)authentication.getPrincipal()).getUser();
+        redisUserUtil.setRedisUserByUser(user);   
         //制作JWT并放入header
-        String token = jwtTokenUtil.generateToken(userDetails);
+        String token = jwtTokenUtil.generateToken(user);
         response.setHeader(jwtProperties.getToken(), token);
         System.out.println("token为："+token+"\n 成品token："+response.getHeader(jwtProperties.getToken()));
         // 添加jackson

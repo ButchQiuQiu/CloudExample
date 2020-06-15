@@ -13,7 +13,6 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response,
             AuthenticationException authException) throws ServletException, java.io.IOException {
-        System.out.println("JwtAuthenticationEntryPoint:" + authException.getMessage());
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "没有凭证");
     }
 }

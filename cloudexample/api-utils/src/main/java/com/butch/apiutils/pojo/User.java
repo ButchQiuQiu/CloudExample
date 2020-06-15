@@ -1,19 +1,13 @@
 package com.butch.apiutils.pojo;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
-
-import com.butch.apiutils.redis.pojo.MySimpleGrantedAuthority;
-
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 /**
  * 用户表实现UserDetails接口
  */
-public class User implements UserDetails {
+public class User implements Serializable{
 	/**
 	 * 序列化
 	 */
@@ -30,15 +24,14 @@ public class User implements UserDetails {
 	private Integer absenteeism;
 	private Jurisdiction fk_jurisdiction;
 	private Depart fk_depart;
-	
-	@SuppressWarnings("all")
-	private Collection<? extends GrantedAuthority> authorities;
+	private List<String> authorities;
 
 	public User() {
 	}
 
-	public User(String username, Collection<? extends GrantedAuthority> authorities) {
-		this.authorities = authorities;
+
+	public User(String username) {
+		super();
 		this.username = username;
 	}
 
@@ -57,61 +50,26 @@ public class User implements UserDetails {
 		this.fk_depart = fk_depart;
 	}
 
-	// 获取权限名
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		List<MySimpleGrantedAuthority> simpleGrantedAuthorities = new ArrayList<>();
-		simpleGrantedAuthorities.add(new MySimpleGrantedAuthority(this.fk_depart.getFk_authority().getName()));
-		return simpleGrantedAuthorities;
+	/**
+	 * 权限将会由Security的模块Details生产
+	 */
+	public List<String> getAuthorities(){
+		return this.authorities;
 	}
 
-	// 获取密码
-	@Override
-	public String getPassword() {
-		return this.password;
+	public void setAuthorities(List<String> authorities){
+		this.authorities=authorities;
 	}
-
-	// 获取账号
-	@Override
+	
 	public String getUsername() {
-		return this.username;
+		return username;
 	}
 
-	/**
-	 * 账号是否过期
-	 */
-	@Override
-	public boolean isAccountNonExpired() {
-		return true;
+
+	public String getPassword() {
+		return password;
 	}
 
-	/**
-	 * 是否禁用
-	 */
-	@Override
-	public boolean isAccountNonLocked() {
-		return true;
-	}
-
-	/**
-	 * 密码是否过期
-	 */
-	@Override
-	public boolean isCredentialsNonExpired() {
-		return true;
-	}
-
-	/**
-	 * 是否启用
-	 */
-	@Override
-	public boolean isEnabled() {
-		return true;
-	}
-
-	public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
-		this.authorities = authorities;
-	}
 
 	public void setUsername(String username) {
 		this.username = username;

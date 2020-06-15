@@ -5,6 +5,8 @@ import com.butch.securityzuul6101.security.JwtAuthorizationTokenFilter;
 import com.butch.securityzuul6101.security.JwtUserDetailsService;
 import com.butch.securityzuul6101.security.handle.LoginFailedHandle;
 import com.butch.securityzuul6101.security.handle.LoginSuccessHandle;
+import com.butch.securityzuul6101.util.SecurityUtil;
+import com.netflix.discovery.converters.Auto;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -24,6 +26,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity // 这个注解必须加，开启Security
 @EnableGlobalMethodSecurity(prePostEnabled = true) // 保证post之前的注解可以使用
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    SecurityUtil securityUtil;
 
     /**
      * 登录成功handle 通知前端，并且给前端的请求头挂上jwt
@@ -53,8 +58,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     /**
      * 自定义的Token拦截器
      */
-    @Autowired
-    JwtAuthorizationTokenFilter authenticationTokenFilter;
+    // @Autowired
+    // JwtAuthorizationTokenFilter authenticationTokenFilter;
 
     /**
      * 注入时调用，设置UserDetail、passwordEncoder后会启用默认的DaoAuthenticationProvider
@@ -90,7 +95,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // 定制我们自己的 session 策略：调整为让 Spring Security 不创建和使用 session
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         // 添加JWT拦截器，主要捕获用户的jwt参数。在xxx之前拦截，xxx为第二参数，第一参数为添加的拦截器。
-        http.addFilterBefore(authenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(securityUtil.getJwtAuthorizationTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
     /**
@@ -99,6 +104,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/page-login.html", "/assets/**", "/images/**", "/js/**", "/vendors/**",
-                 "favicon.ico", "/page-login.html","/index.html","/tables-data.html");
+                 "favicon.ico", "/page-login.html");
     }
 }

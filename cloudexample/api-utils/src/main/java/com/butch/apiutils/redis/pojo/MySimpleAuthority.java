@@ -1,8 +1,8 @@
 package com.butch.apiutils.redis.pojo;
 
-import org.springframework.security.core.GrantedAuthority;
+import java.io.Serializable;
 
-public class MySimpleGrantedAuthority implements GrantedAuthority{
+public class MySimpleAuthority implements Serializable{
     /**
      *
      */
@@ -10,15 +10,14 @@ public class MySimpleGrantedAuthority implements GrantedAuthority{
 
     private String authority;
 
-    public MySimpleGrantedAuthority(){
+    public MySimpleAuthority(){
         
     }
 
-    public MySimpleGrantedAuthority(String authority){
+    public MySimpleAuthority(String authority){
         this.authority=authority;
     }
 
-    @Override
     public String getAuthority() {
         return authority;
     }
@@ -27,14 +26,12 @@ public class MySimpleGrantedAuthority implements GrantedAuthority{
         this.authority = authority;
     }
 
-    @Override
     public String toString() {
         return authority;
     }
 
-    @Override
     public boolean equals(Object obj) {
         return this.toString().equals(obj.toString());
     }
-    
+
 }

@@ -29,6 +29,16 @@
             "mainClass": "com.butch.gatewaytop6001.DemoApplication",
             "projectName": "gateway-top6001",
             "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-DemoApplication<datatable8002>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.butch.datatable8002.DemoApplication",
+            "projectName": "datatable8002",
+            "args": ""
         }
     ]
 }

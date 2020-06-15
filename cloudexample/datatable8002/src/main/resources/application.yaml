@@ -6,5 +6,9 @@ eureka:
       #服务注册地址,对应eureka的服务注册url
       defaultZone: http://localhost:7001/eureka/
 spring:
+  profiles:
+    include:
+    # 包含api的配置
+    - api
   application:
     name: datatable
