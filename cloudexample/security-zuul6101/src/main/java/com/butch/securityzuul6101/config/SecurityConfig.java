@@ -1,12 +1,10 @@
 package com.butch.securityzuul6101.config;
 
-import com.butch.securityzuul6101.security.JwtAuthenticationEntryPoint;
-import com.butch.securityzuul6101.security.JwtAuthorizationTokenFilter;
-import com.butch.securityzuul6101.security.JwtUserDetailsService;
 import com.butch.securityzuul6101.security.handle.LoginFailedHandle;
 import com.butch.securityzuul6101.security.handle.LoginSuccessHandle;
+import com.butch.securityzuul6101.security.handle.MyLogoutSuccessHandler;
+import com.butch.securityzuul6101.security.service.JwtUserDetailsService;
 import com.butch.securityzuul6101.util.SecurityUtil;
-import com.netflix.discovery.converters.Auto;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -30,6 +28,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     SecurityUtil securityUtil;
 
+    //----------------------------------------注销
+    @Autowired
+    MyLogoutSuccessHandler myLogoutSuccessHandler;
+
+    //-------------------------------------------登录
     /**
      * 登录成功handle 通知前端，并且给前端的请求头挂上jwt
      */
@@ -89,7 +92,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .usernameParameter("username").passwordParameter("password")
                 // 设置注销请求的url和对应的自定义处理器.
                 // 大坑--jwt没有seesion----------------------------------------------------
-                // .and().logout().logoutUrl("/user/logout").logoutSuccessHandler(null).permitAll()
+                .and().logout().logoutUrl("/user/logout").logoutSuccessHandler(myLogoutSuccessHandler).permitAll()
                 // 禁用 Spring Security 自带的跨域处理
                 .and().csrf().disable()
                 // 定制我们自己的 session 策略：调整为让 Spring Security 不创建和使用 session

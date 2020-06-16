@@ -1,4 +1,4 @@
-package com.butch.securityzuul6101.security;
+package com.butch.securityzuul6101.security.service;
 
 import com.butch.apiutils.mapper.UserMapper;
 import com.butch.apiutils.pojo.User;

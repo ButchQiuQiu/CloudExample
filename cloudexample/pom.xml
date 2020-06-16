@@ -35,7 +35,7 @@
   <!-- 自定义属性,用于版本控制 -->
   <properties>
     <!-- springBoot -->
-    <spring-boot.version>2.2.7.RELEASE</spring-boot.version>
+    <spring-boot.version>2.3.1.RELEASE</spring-boot.version>
     <!-- springCloud -->
     <spring-cloud-version>Hoxton.SR4</spring-cloud-version>
     <!-- mybatis -->

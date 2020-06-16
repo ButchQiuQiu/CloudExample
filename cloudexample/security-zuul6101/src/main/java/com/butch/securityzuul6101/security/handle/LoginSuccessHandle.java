@@ -45,7 +45,6 @@ public class LoginSuccessHandle implements AuthenticationSuccessHandler {
         //制作JWT并放入header
         String token = jwtTokenUtil.generateToken(user);
         response.setHeader(jwtProperties.getToken(), token);
-        System.out.println("token为："+token+"\n 成品token："+response.getHeader(jwtProperties.getToken()));
         // 添加jackson
         ObjectMapper mapper = new ObjectMapper();
         Map<String, String> map = new HashMap<>();

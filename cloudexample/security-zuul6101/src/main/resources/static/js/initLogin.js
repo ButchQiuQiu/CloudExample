@@ -32,6 +32,7 @@ function loginout() {
         success: function () {
             alert("注销成功返回登录页面");
             window.location.href = "page-login.html";
+            
         },
         error: function (data) {
             alert("与服务器连接出错!");

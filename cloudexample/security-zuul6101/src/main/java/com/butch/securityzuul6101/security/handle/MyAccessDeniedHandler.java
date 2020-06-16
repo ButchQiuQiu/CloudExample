@@ -18,7 +18,6 @@ import org.springframework.stereotype.Component;
 /**
  * 鉴权失败后的处理程序.
  * 
- * 明天把springBoot的版本降低成稳定版
  */
 @Component
 public class MyAccessDeniedHandler implements AccessDeniedHandler {

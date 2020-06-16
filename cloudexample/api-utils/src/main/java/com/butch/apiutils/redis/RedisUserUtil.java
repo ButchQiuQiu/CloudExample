@@ -42,11 +42,19 @@ public class RedisUserUtil {
     /**
      * 按照user_username获取到对应的RedisUserDetails
      */
-    public RedisUserDetails getUserDetailsByUserId(String tokenName) {
-        return (RedisUserDetails) redisTemplate.opsForValue().get("user_" + tokenName);
+    public RedisUserDetails getUserDetailsByUserId(String userId) {
+        return (RedisUserDetails) redisTemplate.opsForValue().get("user_" + userId);
     }
 
 
+    /**
+     * 按照userid删除对应的缓存
+     * @param string
+     */
+    public void delUserDetailsByUserId(String Userid) {
+        System.out.println(Userid);
+        redisTemplate.delete("user_"+Userid);
+	}
 
 
 
