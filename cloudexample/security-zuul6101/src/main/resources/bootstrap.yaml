@@ -6,4 +6,7 @@ eureka:
 spring:
   cloud:
     config:
-      name: security-zuul,api
+      name: security-zuul
+      discovery:
+        service-id: config-server
+        enabled: true

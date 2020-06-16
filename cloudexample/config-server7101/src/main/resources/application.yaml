@@ -15,7 +15,7 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/ButchQiuQiu/CloudExample.git
+          uri: https://gitee.com/ButchQiuQiu/CloudExample.git
           # 公开仓库可以不填账号密码
         # username:
         # password: 

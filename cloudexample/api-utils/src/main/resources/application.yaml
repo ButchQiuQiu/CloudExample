@@ -1,4 +1,4 @@
-spring:
-  profiles:
-    include:
-    - api
+# spring:
+#   profiles:
+#     include:
+#     - api
