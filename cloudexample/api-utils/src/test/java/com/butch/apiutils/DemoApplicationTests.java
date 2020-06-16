@@ -3,7 +3,6 @@ package com.butch.apiutils;
 import com.butch.apiutils.jwt.JwtProperties;
 import com.butch.apiutils.mapper.UserMapper;
 import com.butch.apiutils.pojo.UserTest;
-import com.butch.apiutils.redis.RedisUserUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -55,11 +54,4 @@ class DemoApplicationTests {
 		System.out.println(userMapper.getUserByUsername("Qiu123456"));
 	}
 	
-	@Autowired
-	RedisUserUtil redisUserUtil;
-	@Test
-	void demoRedisUtil(){
-		son f=(son)new father();
-		f.say();
-	}
 }
