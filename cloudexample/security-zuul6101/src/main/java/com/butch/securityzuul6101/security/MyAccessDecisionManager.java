@@ -3,7 +3,7 @@ package com.butch.securityzuul6101.security;
 import java.util.Collection;
 
 import com.butch.apiutils.reflect.ReflectUtil;
-import com.butch.securityzuul6101.security.service.AccessDecisionService;
+import com.butch.securityzuul6101.security.handle.AccessDecisionHandles;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDecisionManager;
@@ -15,15 +15,19 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.stereotype.Component;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * AccessDecisionManager框架有3种实现,默认使用投票实现 鉴权决策类,默认实现是使用投票方案
  */
+@Slf4j
 @Component
 public class MyAccessDecisionManager implements AccessDecisionManager {
 	@Autowired
-	AccessDecisionService accessDecisionService;
+	AccessDecisionHandles accessDecisionHandls;
 	@Autowired
 	ReflectUtil reflectUtil;
+
 	/**
 	 * 
 	 * 自定义鉴权
@@ -48,15 +52,16 @@ public class MyAccessDecisionManager implements AccessDecisionManager {
 		 * 会在AccessDecisionService中寻找对应函数鉴权,没找到对应鉴权函数代表此请求不需要权限
 		 * 鉴权成功会放行,失败会抛出异常交由MyAccessDeniedHandler执行.
 		 * 
-		 * 通过反射分发url对应的权限验证,主要验证用户是否能操作目标用户. 
-		 * 转换规则:URL:/user/status 请求类型为post 角色为administrative转换成
-		 * user_status_administrative_POST,
+		 * 通过反射分发url对应的权限验证,主要验证用户是否能操作目标用户. 转换规则:URL:/user/status 请求类型为post
+		 * 角色为administrative转换成 user_status_administrative_POST,
 		 */
-		String methodName = filterInvocation.getRequestUrl().substring(1).replace('/', '_')
-				+"_"+ authentication.getAuthorities().toArray()[0]+"_"+filterInvocation.getHttpRequest().getMethod();
-		System.out.println("映射值为:"+methodName);
-		Object re = reflectUtil.useMethodByMethodName(accessDecisionService, methodName,
-				filterInvocation.getHttpRequest(),authentication.getName());
+
+		String methodName = filterInvocation.getRequestUrl().substring(1).replace('/', '_') + "_"
+				+ authentication.getAuthorities().toArray()[0] + "_" + filterInvocation.getHttpRequest().getMethod();
+		log.info("请求URl为" + filterInvocation.getRequestUrl());
+		log.info("映射值为将会跑到Handls里面查找对应的鉴权，没有就放行:" + methodName);
+		Object re = reflectUtil.useMethodByMethodName(accessDecisionHandls, methodName,
+				filterInvocation.getHttpRequest(), authentication.getName());
 		if (re != null) {
 			if ((boolean) re == false) {
 				// 鉴权失败

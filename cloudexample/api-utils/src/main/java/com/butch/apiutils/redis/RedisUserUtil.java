@@ -3,15 +3,14 @@ package com.butch.apiutils.redis;
 import java.util.concurrent.TimeUnit;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.stereotype.Component;
 
 import com.butch.apiutils.jwt.JwtTokenUtil;
 import com.butch.apiutils.pojo.User;
 import com.butch.apiutils.redis.pojo.RedisUserDetails;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Component;
 
 /**
  * Redis的工具类，
@@ -52,7 +51,6 @@ public class RedisUserUtil {
      * @param string
      */
     public void delUserDetailsByUserId(String Userid) {
-        System.out.println(Userid);
         redisTemplate.delete("user_"+Userid);
 	}
 

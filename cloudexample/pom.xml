@@ -89,6 +89,13 @@
 
   <!-- 常用包的依赖,父工程只导入web,springboot,dev,测试模块 -->
   <dependencies>
+    <!-- lombok -->
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.18.12</version>
+      <scope>provided</scope>
+    </dependency>
     <!-- boot -->
     <dependency>
       <groupId>org.springframework.boot</groupId>

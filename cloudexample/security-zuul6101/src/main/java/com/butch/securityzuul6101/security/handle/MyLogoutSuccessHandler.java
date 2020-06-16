@@ -1,27 +1,25 @@
 package com.butch.securityzuul6101.security.handle;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.butch.apiutils.jwt.JwtTokenUtil;
-import com.butch.apiutils.jwt.JwtUtil;
 import com.butch.apiutils.redis.RedisUserUtil;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.stereotype.Component;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * MyLogoutSuccessHandler 注销成功自定义处理器
  */
+@Slf4j
 @Component
 public class MyLogoutSuccessHandler implements LogoutSuccessHandler {
     @Autowired
@@ -33,7 +31,7 @@ public class MyLogoutSuccessHandler implements LogoutSuccessHandler {
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
             throws IOException, ServletException {
         redisUserUtil.delUserDetailsByUserId(jwtTokenUtil.getUserIdFromReq(request));
-        System.out.println("注销成功");
+            log.info("注销成功");
     }
 
 }

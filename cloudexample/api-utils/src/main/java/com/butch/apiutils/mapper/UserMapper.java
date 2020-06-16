@@ -6,7 +6,6 @@ import java.util.Map;
 import com.butch.apiutils.pojo.User;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 @Mapper
 @Repository

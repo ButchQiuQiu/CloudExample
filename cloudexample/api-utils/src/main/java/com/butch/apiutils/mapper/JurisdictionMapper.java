@@ -5,7 +5,6 @@ import java.util.List;
 import com.butch.apiutils.pojo.Jurisdiction;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 @Repository
 @Mapper

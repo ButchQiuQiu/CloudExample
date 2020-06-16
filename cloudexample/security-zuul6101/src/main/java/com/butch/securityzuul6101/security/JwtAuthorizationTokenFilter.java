@@ -22,6 +22,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import io.jsonwebtoken.ExpiredJwtException;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * 自定义拦截器，把用户的token添加进上下文中，可以让后面的鉴权之类的拦截器使用到此用户。
@@ -29,7 +30,9 @@ import io.jsonwebtoken.ExpiredJwtException;
  * 由SecurityUntil建造，目前版本spring过滤器只要自动注入就会自动装配至mvc，不会进入security链过滤静态资源。
  * 真JB的天坑浪费👴的时间
  */
+@Slf4j
 public class JwtAuthorizationTokenFilter extends OncePerRequestFilter {
+	
 	private JwtTokenUtil jwtTokenUtil;
 	private JwtProperties jwtProperties;
 	private RedisUserUtil redisUserUtil;
@@ -56,8 +59,9 @@ public class JwtAuthorizationTokenFilter extends OncePerRequestFilter {
 				}
 			}
 		}
-		System.out.println("-------jwt的值是否为空-----：" + (requestHeader == null));
-		System.out.println(requestHeader);
+		
+		log.info("-------jwt的值是否为空-----：" + (requestHeader == null));
+		log.info(requestHeader);
 		String username = null;
 		String authToken = null;
 		// 如果请求头有JWT代表已经通过验证，可以直接挖出username

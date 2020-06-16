@@ -1,20 +1,17 @@
 package com.butch.apiutils;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
-
 import com.butch.apiutils.jwt.JwtProperties;
 import com.butch.apiutils.mapper.UserMapper;
 import com.butch.apiutils.pojo.UserTest;
 import com.butch.apiutils.redis.RedisUserUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 
 @SpringBootTest
 class DemoApplicationTests {
@@ -28,6 +25,7 @@ class DemoApplicationTests {
 		System.out.println(jwt.toString());
 	}
 
+	@SuppressWarnings("all")
 	@Test
 	void demoRedis() throws JsonProcessingException {
 		UserTest user = new UserTest("111", "222");

@@ -1,4 +1,4 @@
-package com.butch.securityzuul6101.security.service;
+package com.butch.securityzuul6101.security.handle;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -21,18 +21,13 @@ import org.springframework.stereotype.Service;
  * 
  */
 @Service
-public class AccessDecisionService {
-    //测试
-    public boolean user_status(HttpServletRequest req){
-        System.out.println("检查status权限100%失败");
-        return false;
-    }
+public class AccessDecisionHandles {
+    
     //删除前鉴权----------------------------------------------------------
     /**
      * 
      */
     public boolean data_table_user_administrative_DELETE(HttpServletRequest req,String myUsername){
-        System.out.println("拦截到管理层"+myUsername);
         return true;
     }
     public boolean data_table_user_personnel_DELETE(HttpServletRequest req,String myUsername){

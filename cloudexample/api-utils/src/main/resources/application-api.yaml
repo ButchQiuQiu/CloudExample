@@ -19,3 +19,7 @@ jwt:
   token: Authorization
 redis:
   user-expiration: 10800
+# 自定义日志的格式，默认的空格太多了
+# logging:
+#   pattern:
+#     console: "%d{yyyy/MM/dd-HH:mm:ss} [%thread] %-5level %logger- %msg%n"

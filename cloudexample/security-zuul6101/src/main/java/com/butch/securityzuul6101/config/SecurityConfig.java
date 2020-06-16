@@ -1,5 +1,6 @@
 package com.butch.securityzuul6101.config;
 
+import com.butch.securityzuul6101.security.MyAccessDecisionManager;
 import com.butch.securityzuul6101.security.handle.LoginFailedHandle;
 import com.butch.securityzuul6101.security.handle.LoginSuccessHandle;
 import com.butch.securityzuul6101.security.handle.MyLogoutSuccessHandler;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -18,6 +20,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
@@ -28,6 +31,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     SecurityUtil securityUtil;
 
+    /**
+     * 自定义鉴权
+     */
+    @Autowired
+    MyAccessDecisionManager myAccessDecisionManager;
+
+    
     //----------------------------------------注销
     @Autowired
     MyLogoutSuccessHandler myLogoutSuccessHandler;
@@ -84,6 +94,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests().antMatchers(HttpMethod.OPTIONS, "/**").anonymous()
                 // 所有请求都得通过验证
                 .anyRequest().authenticated()
+                //添加鉴权的各种处理器-->过滤拦截器 ,权限拦截器在验证拦截器后执行,
+                .withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
+                    // 初始化对象，可能会返回一个应该使用的修改过的实例。
+                    @Override
+                    public <O extends FilterSecurityInterceptor> O postProcess(O object) {
+                        // 设置提供鉴权角色类
+                        //object.setSecurityMetadataSource(mySecurityMetadataSource);
+                        // 设置自定义鉴权类
+                        object.setAccessDecisionManager(myAccessDecisionManager);
+                        // 返回添加处理器后的对象
+                        return object;
+                    }
+                })
                 // 配置登录请求的url和
                 .and().formLogin().loginPage("/page-login.html").loginProcessingUrl("/user/login")
                 // 登录成功或者失败的处理器
