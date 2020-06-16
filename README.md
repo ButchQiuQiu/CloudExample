@@ -1,5 +1,5 @@
 # 启动
-    config放置模块的配置,configServer和eurekaServer的配置在所属的resource文件夹下。
+    config放置模块的配置,configServer和eurekaServer的配置在所属的resource文件夹下。 默认连接同名gitee的仓库，github实在是太卡了，如果有需求可以在configserver里面改。
 
 # 描述
 * 顶层单机SpringGateway由eureka负载均衡转发至路由安全集群
