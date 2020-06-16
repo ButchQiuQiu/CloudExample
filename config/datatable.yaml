@@ -1,0 +1,9 @@
+server:
+  port: 8002
+spring:
+  profiles:
+    include:
+    # 包含api的配置
+    - api
+  application:
+    name: datatable

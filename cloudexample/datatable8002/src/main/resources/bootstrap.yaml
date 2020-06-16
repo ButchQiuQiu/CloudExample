@@ -1,14 +1,12 @@
-server:
-  port: 8002
 eureka:
   client:
     service-url:
       #服务注册地址,对应eureka的服务注册url
       defaultZone: http://localhost:7001/eureka/
 spring:
-  profiles:
-    include:
-    # 包含api的配置
-    - api
-  application:
-    name: datatable
+  cloud:
+    config:
+      name: datatable
+      discovery:
+        service-id: config-server
+        enabled: true
