@@ -1,0 +1,37 @@
+server:
+  port: 7101
+spring:
+  kafka:
+    # kafka broker服务器 默认为localhost:9092
+    bootstrap-servers: localhost:9092
+
+  application:
+    name: config-server
+  cloud:
+    bus:
+      # 刷新自动追踪功能 默认false
+      trace:
+        enabled: true
+    config:
+      server:
+        git:
+          uri: https://github.com/ButchQiuQiu/CloudExample.git
+          # 公开仓库可以不填账号密码
+        # username:
+        # password: 
+          # 配置文件分支
+          default-label: master 
+          # 配置文件所在根目录
+          search-paths: config
+eureka:
+  client:
+    service-url:
+      #服务注册地址,对应eureka的服务注册url
+      defaultZone: http://localhost:7001/eureka/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        # 暴露外部接口
+        include: bus-refresh

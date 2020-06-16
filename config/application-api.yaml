@@ -1,0 +1,25 @@
+mybatis:
+  #pojo类的别名,这里指的是pojo包的包位置
+  type-aliases-package: com.butch.apiutils.pojo
+  #mapper.xml所在的位置
+  mapper-locations: classpath*:mybatis/mapper/*Mapper.xml
+spring:
+  datasource:
+    username: root
+    password: 199598
+    url: jdbc:mysql://localhost:3306/greenbirdoa?serverTimezone=UTC&useSSL=false&useUnicode=true&characterEncoding=utf-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  redis:
+    host: localhost
+    port: 6379
+# 自定义的ConfigurationProperties
+jwt:
+  secret: bsIqMgs58mXxf+9/I+LV8Pji+/tVjaHDwwa7ytCd+iU=
+  expiration: 7200000
+  token: Authorization
+redis:
+  user-expiration: 10800
+# 自定义日志的格式，默认的空格太多了
+# logging:
+#   pattern:
+#     console: "%d{yyyy/MM/dd-HH:mm:ss} [%thread] %-5level %logger- %msg%n"

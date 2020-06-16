@@ -39,6 +39,16 @@
             "mainClass": "com.butch.datatable8002.DemoApplication",
             "projectName": "datatable8002",
             "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-DemoApplication<config-server7101>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.butch.configserver7101.DemoApplication",
+            "projectName": "config-server7101",
+            "args": ""
         }
     ]
 }

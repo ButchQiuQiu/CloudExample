@@ -16,7 +16,7 @@
     <!-- eureka -->
     <module>eureka7001</module>
     <!-- 配置中心 -->
-    <!-- <module>spring-cloud-config-server7101</module> -->
+    <module>config-server7101</module>
 
     <!--———————————————————————————————————————————————— 公共api ——————————————————————————————————————————————-->
     <!-- Redis、反射、jwt等等 -->
@@ -37,7 +37,7 @@
     <!-- springBoot -->
     <spring-boot.version>2.3.1.RELEASE</spring-boot.version>
     <!-- springCloud -->
-    <spring-cloud-version>Hoxton.SR4</spring-cloud-version>
+    <spring-cloud-version>Hoxton.SR5</spring-cloud-version>
     <!-- mybatis -->
     <mybatis.starter.version>2.1.2</mybatis.starter.version>
     <!-- druid -->
