@@ -11,6 +11,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import io.swagger.annotations.ApiModel;
+
+@ApiModel("权限类已组合User")
 public class UserExDetails implements UserDetails {
 	
 	/**
