@@ -17,6 +17,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 @Configuration
 public class SwaggerConfig {
     @Bean
+    @SuppressWarnings("all")
     public Docket docket() {
         Docket docket = new Docket(DocumentationType.SWAGGER_2);
         //作者信息
