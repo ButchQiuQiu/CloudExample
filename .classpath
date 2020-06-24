@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path=".mvn/wrapper"/>
+	<classpathentry kind="src" path="cloudexample/api-utils/src/main/java"/>
+	<classpathentry kind="src" path="cloudexample/api-utils/src/test/java"/>
+	<classpathentry kind="src" path="cloudexample/config-server7101/.mvn/wrapper"/>
+	<classpathentry kind="src" path="cloudexample/config-server7101/src/main/java"/>
+	<classpathentry kind="src" path="cloudexample/config-server7101/src/test/java"/>
+	<classpathentry kind="src" path="cloudexample/datatable8002/src/main/java"/>
+	<classpathentry kind="src" path="cloudexample/datatable8002/src/test/java"/>
+	<classpathentry kind="src" path="cloudexample/eureka7001/src/main/java"/>
+	<classpathentry kind="src" path="cloudexample/eureka7001/src/test/java"/>
+	<classpathentry kind="src" path="cloudexample/gateway-top6001/src/main/java"/>
+	<classpathentry kind="src" path="cloudexample/gateway-top6001/src/test/java"/>
+	<classpathentry kind="src" path="cloudexample/security-zuul6101/src/main/java"/>
+	<classpathentry kind="src" path="cloudexample/security-zuul6101/src/test/java"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

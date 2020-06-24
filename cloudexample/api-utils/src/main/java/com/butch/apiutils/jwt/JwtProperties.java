@@ -19,7 +19,6 @@ public class JwtProperties {
     private String token;
 
     
-
 	public String getSecret() {
         return secret;
     }

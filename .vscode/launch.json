@@ -49,6 +49,16 @@
             "mainClass": "com.butch.configserver7101.DemoApplication",
             "projectName": "config-server7101",
             "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-DemoApplication<api-utils>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.butch.apiutils.DemoApplication",
+            "projectName": "api-utils",
+            "args": ""
         }
     ]
 }
