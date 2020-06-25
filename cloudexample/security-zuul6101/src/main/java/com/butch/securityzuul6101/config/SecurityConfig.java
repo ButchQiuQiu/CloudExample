@@ -1,5 +1,7 @@
 package com.butch.securityzuul6101.config;
 
+import javax.validation.Valid;
+
 import com.butch.securityzuul6101.security.MyAccessDecisionManager;
 import com.butch.securityzuul6101.security.handle.LoginFailedHandle;
 import com.butch.securityzuul6101.security.handle.LoginSuccessHandle;
@@ -9,6 +11,7 @@ import com.butch.securityzuul6101.util.SecurityUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.ObjectPostProcessor;
@@ -27,6 +30,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity // 这个注解必须加，开启Security
 @EnableGlobalMethodSecurity(prePostEnabled = true) // 保证post之前的注解可以使用
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Value("${security-zuul-top-gateway}")
+    String securityZuulTopGateway;
 
     @Autowired
     SecurityUtil securityUtil;
@@ -108,7 +114,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     }
                 })
                 // 配置登录请求的url和
-                .and().formLogin().loginPage("/page-login.html").loginProcessingUrl("/user/login")
+                .and().formLogin().loginPage(securityZuulTopGateway+"/page-login.html").loginProcessingUrl("/user/login")
                 // 登录成功或者失败的处理器
                 .successHandler(loginSuccessHandle).failureHandler(loginFailedHandle).permitAll()
                 // 设置login_p页面向login提交的表单的各个元素名.

@@ -9,4 +9,6 @@ spring:
     name: security-zuul
 zuul:
   sensitive-headers: 
+# 顶层网关的地址，用于重定向登录页面，就懒得写加config写注释了
+security-zuul-top-gateway: http://localhost:6001
     
