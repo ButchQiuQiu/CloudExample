@@ -11,15 +11,15 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 @EnableEurekaClient
 @EnableZuulProxy
-/**
- * 扫描工具类的Spring和mybatis组件
- */
-@ComponentScan(value = "com.butch.apiutils")
-@MapperScan("com.butch.apiutils")
-/**
- * 然后继续扫描自己的spring组件
- */
-@ComponentScan
+// /**
+//  * 扫描工具类的Spring和mybatis组件
+//  */
+// @ComponentScan(value = "com.butch.apiutils")
+// @MapperScan("com.butch.apiutils")
+// /**
+//  * 然后继续扫描自己的spring组件
+//  */
+// @ComponentScan
 
 @SpringBootApplication
 public class DemoApplication {
