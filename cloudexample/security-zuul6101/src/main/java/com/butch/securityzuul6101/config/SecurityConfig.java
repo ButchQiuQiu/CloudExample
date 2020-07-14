@@ -1,7 +1,5 @@
 package com.butch.securityzuul6101.config;
 
-import javax.validation.Valid;
-
 import com.butch.securityzuul6101.security.MyAccessDecisionManager;
 import com.butch.securityzuul6101.security.handle.LoginFailedHandle;
 import com.butch.securityzuul6101.security.handle.LoginSuccessHandle;
