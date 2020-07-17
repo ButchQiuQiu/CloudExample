@@ -8,6 +8,7 @@
 	</parent>
 	<groupId>com.butch</groupId>
 	<artifactId>gateway-top6001</artifactId>
+	<packaging>jar</packaging>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>gateway-top6001</name>
 	<description>Demo project for Spring Boot</description>

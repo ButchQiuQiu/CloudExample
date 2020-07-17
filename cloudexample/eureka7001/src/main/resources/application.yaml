@@ -1,13 +1,18 @@
+spring:
+  application:
+    name: eureka-server
 server:
-  port: 7001
+  port: 7005
 #Eureka配置
 eureka:
   server:
+  # 心跳保护
     enable-self-preservation: false
   client:
-    #表示是否向注册中心注册自己
-    register-with-eureka: false
-    #false代表自己是注册中心
-    fetch-registry: false
+    # 指示此实例是否应向eureka服务器注册其信息以供其他人发现。在某些情况下，您不希望发现实例，而只想发现其他实例。
+    register-with-eureka: true
+    # 指示此客户端是否应从eureka服务器获取eureka注册表信息。
+    fetch-registry: true
     service-url:
-      defaultZone: http://localhost:7001/eureka/
+    # 从环境变量中获取其他的注册服务用于eureka集群。
+      defaultZone: http://${EUREKA-IP:127.0.0.1}:7001/eureka/

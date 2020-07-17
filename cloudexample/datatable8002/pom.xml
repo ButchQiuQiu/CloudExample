@@ -8,6 +8,7 @@
 	</parent>
 	<groupId>com.butch</groupId>
 	<artifactId>datatable8002</artifactId>
+	<packaging>jar</packaging>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>datatable8002</name>
 	<description>Demo project for Spring Boot</description>

@@ -8,6 +8,7 @@
 	</parent>
 	<groupId>com.butch</groupId>
 	<artifactId>security-zuul6101</artifactId>
+	<packaging>jar</packaging>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>security-zuul6101</name>
 	<description>Demo project for Spring Boot</description>
