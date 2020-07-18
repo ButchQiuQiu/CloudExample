@@ -2,7 +2,7 @@ spring:
   application:
     name: eureka-server
 server:
-  port: ${EUREKA-PORT:7001}
+  port: ${PORT:7001}
 #Eureka配置
 eureka:
   server:

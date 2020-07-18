@@ -4,7 +4,7 @@ eureka:
       #服务注册地址,对应eureka的服务注册url
       defaultZone: http://${EUREKA-IP:127.0.0.1}:7001/eureka/
 server:
-  port: 7101
+  port: ${PORT:7101}
 spring:
   kafka:
     # kafka broker服务器 默认为localhost:9092
