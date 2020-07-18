@@ -4,6 +4,9 @@ mybatis:
   #mapper.xml所在的位置
   mapper-locations: classpath*:mybatis/mapper/*Mapper.xml
 spring:
+  kafka:
+    # kafka broker服务器 默认为localhost:9092
+    bootstrap-servers: ${KAFKA-IP:127.0.0.1}:9092
   datasource:
     username: root
     password: root

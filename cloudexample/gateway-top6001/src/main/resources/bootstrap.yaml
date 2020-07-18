@@ -1,3 +1,5 @@
+server:
+  port: ${PORT:6001}
 spring:
   cloud:
     config:
