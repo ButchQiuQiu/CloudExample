@@ -29,7 +29,6 @@ public class SwaggerConfig {
                 //paths()为过滤
                 //groupName为分组,每个组都是独立的docket,可以注入多个docket只要分组不一样即可.
                 .select().apis(RequestHandlerSelectors.basePackage("com.butch.securityzuul6101.controller")).build();
-
         return docket;
     }
 }
